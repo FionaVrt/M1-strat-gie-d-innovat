@@ -1,6 +1,11 @@
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+// Singleton — instancié une seule fois par process, pas au chargement du module
+let _prisma: PrismaClient | undefined;
+function getPrisma(): PrismaClient {
+  if (!_prisma) _prisma = new PrismaClient();
+  return _prisma;
+}
 
 export const VALID_CATEGORIES = ["Papeterie", "Déco", "Art de la table"] as const;
 export type Category = (typeof VALID_CATEGORIES)[number];
@@ -47,6 +52,8 @@ export async function searchProducts(
     }
   }
 
+  const prisma = getPrisma();
+
   const products = await prisma.product.findMany({
     where: {
       ...(search && { name: { contains: search } }),
@@ -67,14 +74,26 @@ export async function searchProducts(
   return { ok: true, products };
 }
 
-// Exécution standalone
-if (process.argv[1] === import.meta.filename) {
+// Exécution standalone — détection compatible Node.js et bundlers
+function isStandaloneRun(): boolean {
+  try {
+    // import.meta.filename est Node.js 21.2+ seulement ; peut être absent en contexte bundlé
+    const selfFile = (import.meta as Record<string, unknown>).filename as string | undefined;
+    return typeof selfFile === "string" && process.argv[1] === selfFile;
+  } catch {
+    return false;
+  }
+}
+
+if (isStandaloneRun()) {
   const [, , searchArg, categoryArg] = process.argv;
   const params: SearchParams = {};
-  if (searchArg !== undefined && searchArg !== "") params.search = searchArg;
-  if (categoryArg !== undefined && categoryArg !== "") params.category = categoryArg;
+  if (searchArg && searchArg !== "") params.search = searchArg;
+  if (categoryArg && categoryArg !== "") params.category = categoryArg;
 
   console.log("Paramètres :", params);
+
+  const prisma = getPrisma();
   searchProducts(params)
     .then((result) => {
       if (!result.ok) {

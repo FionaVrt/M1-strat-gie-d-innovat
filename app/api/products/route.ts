@@ -2,16 +2,22 @@ import { type NextRequest } from "next/server";
 import { searchProducts } from "@/skills/product-search/script";
 
 export async function GET(request: NextRequest) {
-  const { searchParams } = request.nextUrl;
+  try {
+    const { searchParams } = request.nextUrl;
 
-  const result = await searchProducts({
-    search: searchParams.get("search") ?? undefined,
-    category: searchParams.get("category") ?? undefined,
-  });
+    const result = await searchProducts({
+      search: searchParams.get("search") ?? undefined,
+      category: searchParams.get("category") ?? undefined,
+    });
 
-  if (!result.ok) {
-    return Response.json({ error: result.error }, { status: 400 });
+    if (!result.ok) {
+      return Response.json({ error: result.error }, { status: 400 });
+    }
+
+    return Response.json(result.products);
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Erreur serveur inattendue.";
+    console.error("[GET /api/products]", err);
+    return Response.json({ error: message }, { status: 500 });
   }
-
-  return Response.json(result.products);
 }
