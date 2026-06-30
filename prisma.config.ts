@@ -1,9 +1,9 @@
 import path from "node:path";
-import { defineConfig, env } from "prisma/config";
+import { defineConfig } from "prisma/config";
 
 export default defineConfig({
   datasource: {
-    url: env("DATABASE_URL"),
+    url: `file:${path.join(process.cwd(), "prisma", "dev.db")}`,
   },
   schema: path.join("prisma", "schema.prisma"),
 });
