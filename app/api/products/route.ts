@@ -1,8 +1,8 @@
 import { type NextRequest } from "next/server";
-import { searchProducts } from "@/skills/product-search/script";
 
 export async function GET(request: NextRequest) {
   try {
+    const { searchProducts } = await import("@/skills/product-search/script");
     const { searchParams } = request.nextUrl;
 
     const result = await searchProducts({
