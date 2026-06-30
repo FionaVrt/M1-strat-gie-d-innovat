@@ -38,8 +38,14 @@ export default function ProduitsPage() {
         setProducts(data);
         setLoading(false);
       })
-      .catch((msg: string) => {
-        setError(msg ?? "Erreur inattendue.");
+      .catch((err: unknown) => {
+        const message =
+          typeof err === "string"
+            ? err
+            : err instanceof Error
+            ? err.message
+            : "Erreur inattendue.";
+        setError(message);
         setLoading(false);
       });
   }, [search, category]);
