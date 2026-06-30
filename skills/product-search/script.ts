@@ -1,19 +1,9 @@
-import path from "node:path";
-import Database from "better-sqlite3";
-import { PrismaBetterSQLite3 } from "@prisma/adapter-better-sqlite3";
 import { PrismaClient } from "@prisma/client";
 
-// Resolve DB path relative to project root, not the script file
-const DB_PATH = path.resolve(process.cwd(), "prisma", "dev.db");
-
+// Singleton — instancié une seule fois par process, pas au chargement du module
 let _prisma: PrismaClient | undefined;
 function getPrisma(): PrismaClient {
-  if (!_prisma) {
-    const db = new Database(DB_PATH);
-    const adapter = new PrismaBetterSQLite3(db);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    _prisma = new PrismaClient({ adapter } as any);
-  }
+  if (!_prisma) _prisma = new PrismaClient();
   return _prisma;
 }
 
@@ -43,6 +33,7 @@ export async function searchProducts(
 ): Promise<Success | Failure> {
   const { search, category } = params;
 
+  // Gate déterministe — aucun accès à la base avant ce point
   if (search !== undefined) {
     if (search.length === 0 || search.length > 100) {
       return {
@@ -83,8 +74,10 @@ export async function searchProducts(
   return { ok: true, products };
 }
 
+// Exécution standalone — détection compatible Node.js et bundlers
 function isStandaloneRun(): boolean {
   try {
+    // import.meta.filename est Node.js 21.2+ seulement ; peut être absent en contexte bundlé
     const selfFile = (import.meta as Record<string, unknown>).filename as string | undefined;
     return typeof selfFile === "string" && process.argv[1] === selfFile;
   } catch {
