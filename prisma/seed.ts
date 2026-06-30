@@ -3,6 +3,17 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
+  // Utilisateur par défaut pour les commandes (pas d'auth dans ce workshop)
+  await prisma.user.upsert({
+    where: { email: "user-demo@maison-papier.fr" },
+    update: {},
+    create: {
+      email: "user-demo@maison-papier.fr",
+      name: "Visiteur",
+      role: "USER",
+    },
+  });
+
   await prisma.product.deleteMany();
 
   await prisma.product.createMany({
@@ -93,7 +104,7 @@ async function main() {
     ],
   });
 
-  console.log("✓ Seed terminé — 10 produits insérés.");
+  console.log("✓ Seed terminé — utilisateur demo + 10 produits insérés.");
 }
 
 main()
