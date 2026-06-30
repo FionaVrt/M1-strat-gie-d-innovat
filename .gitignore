@@ -40,6 +40,9 @@ yarn-error.log*
 *.db
 *.db-journal
 
+# exports générés par skills/export-orders
+/exports
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
