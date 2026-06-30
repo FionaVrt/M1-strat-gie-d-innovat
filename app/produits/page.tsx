@@ -52,7 +52,12 @@ export default function ProduitsPage() {
 
   return (
     <main className="mx-auto max-w-5xl px-6 py-12">
-      <h1 className="text-2xl font-semibold text-zinc-900 mb-8">Catalogue</h1>
+      <div className="mb-10">
+        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-stone mb-2">
+          Collection
+        </p>
+        <h1 className="font-display text-3xl italic text-ink">Catalogue</h1>
+      </div>
 
       {/* Filtres */}
       <div className="flex flex-col sm:flex-row gap-3 mb-10">
@@ -61,12 +66,12 @@ export default function ProduitsPage() {
           placeholder="Rechercher un produit…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="flex-1 rounded-xl border border-zinc-200 bg-white px-4 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-300"
+          className="flex-1 border border-stone/30 bg-paper px-4 py-2 text-sm text-ink placeholder:text-stone/50 focus:outline-none focus:border-kraft transition-colors"
         />
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          className="rounded-xl border border-zinc-200 bg-white px-4 py-2 text-sm text-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-300"
+          className="border border-stone/30 bg-paper px-4 py-2 text-sm text-ink focus:outline-none focus:border-kraft transition-colors"
         >
           <option value="">Toutes les catégories</option>
           {CATEGORIES.map((c) => (
@@ -79,15 +84,15 @@ export default function ProduitsPage() {
 
       {/* Contenu */}
       {error && (
-        <p className="text-sm text-red-500 mb-6">{error}</p>
+        <p className="text-sm text-clay mb-6">{error}</p>
       )}
 
       {loading ? (
-        <p className="text-sm text-zinc-400">Chargement…</p>
+        <p className="font-mono text-xs uppercase tracking-widest text-stone">Chargement…</p>
       ) : products.length === 0 ? (
-        <p className="text-sm text-zinc-400">Aucun produit trouvé.</p>
+        <p className="font-mono text-xs uppercase tracking-widest text-stone">Aucun produit trouvé.</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-stone/15">
           {products.map((p) => (
             <ProductCard key={p.id} product={p} />
           ))}

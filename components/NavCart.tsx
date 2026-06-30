@@ -8,11 +8,11 @@ export default function NavCart() {
   return (
     <Link
       href="/panier"
-      className="relative text-sm text-zinc-600 hover:text-zinc-900 transition-colors"
+      className="font-mono text-xs uppercase tracking-widest text-stone hover:text-ink transition-colors flex items-center gap-2"
     >
       Panier
       {count > 0 && (
-        <span className="ml-1.5 inline-flex items-center justify-center rounded-full bg-zinc-900 text-white text-xs w-5 h-5">
+        <span className="inline-flex items-center justify-center rounded-sm bg-clay text-paper text-[10px] font-mono w-4 h-4 leading-none">
           {count}
         </span>
       )}
