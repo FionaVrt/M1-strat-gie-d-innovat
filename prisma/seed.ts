@@ -13,11 +13,12 @@ async function main() {
     },
   });
 
+  await prisma.orderItem.deleteMany();
+  await prisma.order.deleteMany();
   await prisma.product.deleteMany();
 
   await prisma.product.createMany({
     data: [
-      // Papeterie
       {
         name: "Carnet couverture lin naturel A5",
         description: "Carnet 120 pages papier ivoire 90g, couverture rigide en lin naturel.",
@@ -50,7 +51,6 @@ async function main() {
         category: "Papeterie",
         imageUrl: "/products/stylo.png",
       },
-      // Déco
       {
         name: "Vase en grès blanc mat H20",
         description: "Vase cylindrique tourné à la main, grès émaillé blanc mat, hauteur 20 cm.",
@@ -83,7 +83,6 @@ async function main() {
         category: "Déco",
         imageUrl: "/products/bougie-2.png",
       },
-      // Art de la table
       {
         name: "Set de table en lin lavé — Naturel (lot de 2)",
         description: "Sets de table 35 × 45 cm, lin lavé froissé, coloris naturel non blanchi.",
