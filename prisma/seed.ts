@@ -89,7 +89,7 @@ async function main() {
         price: 24.0,
         stock: 35,
         category: "Art de la table",
-        imageUrl: "/products/set-table-naturel.png",
+        imageUrl: "/products/Set%20de%20table%20en%20lin%20lav%C3%A9%20%E2%80%94%20Naturel.png",
       },
       {
         name: "Set de table en lin lavé — Ardoise (lot de 2)",
@@ -97,7 +97,7 @@ async function main() {
         price: 24.0,
         stock: 28,
         category: "Art de la table",
-        imageUrl: "/products/set-table-ardoise.png",
+        imageUrl: "/products/Set%20de%20table%20en%20lin%20lav%C3%A9%20%E2%80%94%20Ardoise.png",
       },
     ],
   });
