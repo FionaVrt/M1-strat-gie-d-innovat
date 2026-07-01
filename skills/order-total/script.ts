@@ -53,7 +53,7 @@ export async function calculerTotalCommande(
     if (item.quantity > product.stock) {
       return {
         ok: false,
-        error: `Stock insuffisant pour « ${product.name} » — demandé : ${item.quantity}, disponible : ${product.stock}.`,
+        error: `Stock insuffisant pour « ${product.name} » — demandé : ${item.quantity}, disponible : ${product.stock}.`,
       };
     }
     lines.push({ productId: product.id, quantity: item.quantity, unitPrice: product.price });
@@ -75,28 +75,38 @@ function isStandaloneRun(): boolean {
 
 if (isStandaloneRun()) {
   const args = process.argv.slice(2);
-  const items: OrderItem[] =
-    args.length === 0
-      ? [{ productId: 1, quantity: 2 }, { productId: 2, quantity: 1 }]
-      : args.map((arg) => {
-          const [id, qty] = arg.split(":").map(Number);
-          return { productId: id, quantity: qty };
-        });
-
-  console.log("Items :", items);
-
   const prisma = new PrismaClient();
-  calculerTotalCommande(prisma, items)
-    .then((result) => {
-      if (!result.ok) {
-        console.error("Erreur de validation :", result.error);
+
+  async function run() {
+    let items: OrderItem[];
+    if (args.length === 0) {
+      const premiers = await prisma.product.findMany({ take: 2, select: { id: true } });
+      if (premiers.length < 2) {
+        console.error("Pas assez de produits en base pour lancer le test (besoin de 2 minimum).");
         process.exit(1);
       }
-      console.log(`Total : ${result.total.toFixed(2)} €`);
-      result.lines.forEach((l) =>
-        console.log(`  produit ${l.productId} × ${l.quantity} à ${l.unitPrice.toFixed(2)} €`)
-      );
-    })
-    .catch(console.error)
-    .finally(() => prisma.$disconnect());
+      items = [
+        { productId: premiers[0].id, quantity: 2 },
+        { productId: premiers[1].id, quantity: 1 },
+      ];
+    } else {
+      items = args.map((arg) => {
+        const [id, qty] = arg.split(":").map(Number);
+        return { productId: id, quantity: qty };
+      });
+    }
+
+    console.log("Items :", items);
+    const result = await calculerTotalCommande(prisma, items);
+    if (!result.ok) {
+      console.error("Erreur de validation :", result.error);
+      process.exit(1);
+    }
+    console.log(`Total : ${result.total.toFixed(2)} €`);
+    result.lines.forEach((l) =>
+      console.log(`  produit ${l.productId} × ${l.quantity} à ${l.unitPrice.toFixed(2)} €`)
+    );
+  }
+
+  run().catch(console.error).finally(() => prisma.$disconnect());
 }
