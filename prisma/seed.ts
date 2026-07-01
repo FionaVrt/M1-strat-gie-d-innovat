@@ -3,7 +3,6 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  // Utilisateur par défaut pour les commandes (pas d'auth dans ce workshop)
   await prisma.user.upsert({
     where: { email: "user-demo@maison-papier.fr" },
     update: {},
@@ -25,7 +24,7 @@ async function main() {
         price: 14.9,
         stock: 42,
         category: "Papeterie",
-        imageUrl: "https://picsum.photos/seed/carnet-lin/400/300",
+        imageUrl: "/products/carnet.png",
       },
       {
         name: "Carnet pointillé couverture ardoise B5",
@@ -33,7 +32,7 @@ async function main() {
         price: 18.5,
         stock: 30,
         category: "Papeterie",
-        imageUrl: "https://picsum.photos/seed/carnet-ardoise/400/300",
+        imageUrl: "/products/carnet-b5.png",
       },
       {
         name: "Set de 3 carnets Kraft A6",
@@ -41,7 +40,7 @@ async function main() {
         price: 11.9,
         stock: 55,
         category: "Papeterie",
-        imageUrl: "https://picsum.photos/seed/carnets-kraft/400/300",
+        imageUrl: "/products/carnet-karfet.png",
       },
       {
         name: "Stylo laiton brossé",
@@ -49,7 +48,7 @@ async function main() {
         price: 22.0,
         stock: 20,
         category: "Papeterie",
-        imageUrl: "https://picsum.photos/seed/stylo-laiton/400/300",
+        imageUrl: "/products/stylo.png",
       },
       // Déco
       {
@@ -58,23 +57,23 @@ async function main() {
         price: 38.0,
         stock: 15,
         category: "Déco",
-        imageUrl: "https://picsum.photos/seed/vase-blanc/400/300",
+        imageUrl: "/products/vase-1.png",
       },
       {
-        name: "Vase en grès sable nervué H14",
-        description: "Petit vase nervué, grès naturel couleur sable, hauteur 14 cm.",
+        name: "Vase en grès sable nervuré H14",
+        description: "Petit vase nervuré, grès naturel couleur sable, hauteur 14 cm.",
         price: 26.5,
         stock: 22,
         category: "Déco",
-        imageUrl: "https://picsum.photos/seed/vase-sable/400/300",
+        imageUrl: "/products/vase-2.png",
       },
       {
         name: "Bougie soja cire végétale — Cèdre & Lin",
-        description: "Bougie coulée à la main, cire de soja 100 % végétale, 40 h de combustion.",
+        description: "Bougie coulée à la main, cire de soja 100 % végétale, 40 h de combustion.",
         price: 19.9,
         stock: 60,
         category: "Déco",
-        imageUrl: "https://picsum.photos/seed/bougie-cedre/400/300",
+        imageUrl: "/products/bougie-1.png",
       },
       {
         name: "Bougie soja cire végétale — Bois flotté & Sel marin",
@@ -82,16 +81,16 @@ async function main() {
         price: 19.9,
         stock: 48,
         category: "Déco",
-        imageUrl: "https://picsum.photos/seed/bougie-bois/400/300",
+        imageUrl: "/products/bougie-2.png",
       },
       // Art de la table
       {
         name: "Set de table en lin lavé — Naturel (lot de 2)",
-        description: "Sets de table 35 × 45 cm, lin lavé froisé, coloris naturel non blanchi.",
+        description: "Sets de table 35 × 45 cm, lin lavé froissé, coloris naturel non blanchi.",
         price: 24.0,
         stock: 35,
         category: "Art de la table",
-        imageUrl: "https://picsum.photos/seed/set-table-naturel/400/300",
+        imageUrl: "/products/bougie-1.png",
       },
       {
         name: "Set de table en lin lavé — Ardoise (lot de 2)",
@@ -99,7 +98,7 @@ async function main() {
         price: 24.0,
         stock: 28,
         category: "Art de la table",
-        imageUrl: "https://picsum.photos/seed/set-table-ardoise/400/300",
+        imageUrl: "/products/bougie-2.png",
       },
     ],
   });
