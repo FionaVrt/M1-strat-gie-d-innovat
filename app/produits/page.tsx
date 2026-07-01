@@ -51,46 +51,42 @@ export default function ProduitsPage() {
   }, [search, category]);
 
   return (
-    <main className="mx-auto max-w-5xl px-6 py-12">
-      <div className="mb-10">
-        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-stone mb-2">
+    <main className="mx-auto max-w-5xl px-8 py-20">
+      <div className="mb-14">
+        <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-stone mb-3">
           Collection
         </p>
-        <h1 className="font-display text-3xl italic text-ink">Catalogue</h1>
+        <h1 className="font-display text-4xl italic text-ink">Catalogue</h1>
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-3 mb-10">
+      <div className="flex flex-col sm:flex-row gap-3 mb-14">
         <input
           type="search"
           placeholder="Rechercher un produit…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="flex-1 border border-stone/30 bg-paper px-4 py-2 text-sm text-ink placeholder:text-stone/50 focus:outline-none focus:border-kraft transition-colors"
+          className="flex-1 border-[0.5px] border-stone/30 bg-paper px-4 py-2.5 text-sm text-ink placeholder:text-stone/40 focus:outline-none focus:border-kraft transition-colors rounded-[2px]"
         />
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          className="border border-stone/30 bg-paper px-4 py-2 text-sm text-ink focus:outline-none focus:border-kraft transition-colors"
+          className="border-[0.5px] border-stone/30 bg-paper px-4 py-2.5 text-sm text-ink focus:outline-none focus:border-kraft transition-colors rounded-[2px]"
         >
           <option value="">Toutes les catégories</option>
           {CATEGORIES.map((c) => (
-            <option key={c} value={c}>
-              {c}
-            </option>
+            <option key={c} value={c}>{c}</option>
           ))}
         </select>
       </div>
 
-      {error && (
-        <p className="text-sm text-clay mb-6">{error}</p>
-      )}
+      {error && <p className="text-sm text-clay mb-8">{error}</p>}
 
       {loading ? (
-        <p className="font-mono text-xs uppercase tracking-widest text-stone">Chargement…</p>
+        <p className="font-mono text-[11px] uppercase tracking-widest text-stone">Chargement…</p>
       ) : products.length === 0 ? (
-        <p className="font-mono text-xs uppercase tracking-widest text-stone">Aucun produit trouvé.</p>
+        <p className="font-mono text-[11px] uppercase tracking-widest text-stone">Aucun produit trouvé.</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-stone/15">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-stone/10">
           {products.map((p) => (
             <ProductCard key={p.id} product={p} />
           ))}

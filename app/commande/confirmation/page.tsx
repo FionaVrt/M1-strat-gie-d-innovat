@@ -8,14 +8,14 @@ export default async function ConfirmationPage({
   const { id } = await searchParams;
 
   return (
-    <main className="mx-auto max-w-5xl px-6 py-24 flex flex-col items-center text-center gap-8">
-      <div className="w-12 h-12 border border-kraft flex items-center justify-center">
+    <main className="mx-auto max-w-5xl px-8 py-28 flex flex-col items-center text-center gap-10">
+      <div className="w-14 h-14 border-[0.5px] border-kraft flex items-center justify-center rounded-[2px]">
         <span className="font-mono text-xl text-kraft">✓</span>
       </div>
 
-      <div className="space-y-2">
-        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-stone">Confirmation</p>
-        <h1 className="font-display text-3xl italic text-ink">Commande confirmée</h1>
+      <div className="space-y-3">
+        <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-stone">Confirmation</p>
+        <h1 className="font-display text-4xl italic text-ink">Commande confirmée</h1>
       </div>
 
       {id && (
@@ -31,7 +31,7 @@ export default async function ConfirmationPage({
 
       <Link
         href="/produits"
-        className="border border-ink text-ink font-mono text-xs uppercase tracking-widest px-8 py-3 hover:bg-ink hover:text-linen transition-colors"
+        className="border border-ink text-ink font-mono text-[11px] uppercase tracking-widest px-10 py-3.5 hover:bg-ink hover:text-linen transition-colors duration-150 rounded-[2px]"
       >
         Retour au catalogue
       </Link>

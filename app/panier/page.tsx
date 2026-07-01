@@ -38,15 +38,15 @@ export default function PanierPage() {
 
   if (items.length === 0) {
     return (
-      <main className="mx-auto max-w-5xl px-6 py-12">
-        <div className="mb-10">
-          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-stone mb-2">Sélection</p>
-          <h1 className="font-display text-3xl italic text-ink">Panier</h1>
+      <main className="mx-auto max-w-5xl px-8 py-20">
+        <div className="mb-14">
+          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-stone mb-3">Sélection</p>
+          <h1 className="font-display text-4xl italic text-ink">Panier</h1>
         </div>
         <p className="text-sm text-stone">Votre panier est vide.</p>
         <Link
           href="/produits"
-          className="mt-8 inline-block font-mono text-xs uppercase tracking-widest text-stone hover:text-ink underline underline-offset-4 transition-colors"
+          className="mt-10 inline-block font-mono text-[11px] uppercase tracking-widest text-stone hover:text-ink underline underline-offset-4 transition-colors"
         >
           Retour au catalogue
         </Link>
@@ -55,44 +55,39 @@ export default function PanierPage() {
   }
 
   return (
-    <main className="mx-auto max-w-5xl px-6 py-12">
-      <div className="mb-10">
-        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-stone mb-2">Sélection</p>
-        <h1 className="font-display text-3xl italic text-ink">Panier</h1>
+    <main className="mx-auto max-w-5xl px-8 py-20">
+      <div className="mb-14">
+        <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-stone mb-3">Sélection</p>
+        <h1 className="font-display text-4xl italic text-ink">Panier</h1>
       </div>
 
-      <div className="flex flex-col divide-y divide-stone/15 mb-10 border border-stone/20">
+      <div className="flex flex-col divide-y divide-stone/10 mb-14 border-[0.5px] border-stone/20">
         {items.map((item) => (
-          <div
-            key={item.productId}
-            className="flex items-center gap-4 bg-paper px-4 py-4"
-          >
+          <div key={item.productId} className="flex items-center gap-5 bg-paper px-5 py-5">
             {item.imageUrl && (
               <img
                 src={item.imageUrl}
                 alt={item.name}
-                className="h-14 w-14 object-cover flex-shrink-0"
+                className="h-16 w-16 object-cover flex-shrink-0"
               />
             )}
             <div className="flex-1 min-w-0">
-              <p className="font-display text-sm italic text-ink truncate">{item.name}</p>
-              <p className="font-mono text-[10px] uppercase tracking-widest text-stone mt-0.5">
+              <p className="font-display text-[15px] italic text-ink truncate">{item.name}</p>
+              <p className="font-mono text-[10px] uppercase tracking-widest text-stone mt-1">
                 {item.price.toFixed(2)} € / unité
               </p>
             </div>
             <div className="flex items-center gap-2">
               <button
                 onClick={() => updateQuantity(item.productId, item.quantity - 1)}
-                className="w-6 h-6 border border-stone/30 text-stone hover:border-ink hover:text-ink flex items-center justify-center text-base leading-none transition-colors"
+                className="w-7 h-7 border-[0.5px] border-stone/30 text-stone hover:border-ink hover:text-ink flex items-center justify-center text-base leading-none transition-colors rounded-[2px]"
               >
                 −
               </button>
-              <span className="w-6 text-center font-mono text-sm text-ink">
-                {item.quantity}
-              </span>
+              <span className="w-7 text-center font-mono text-sm text-ink">{item.quantity}</span>
               <button
                 onClick={() => updateQuantity(item.productId, item.quantity + 1)}
-                className="w-6 h-6 border border-stone/30 text-stone hover:border-ink hover:text-ink flex items-center justify-center text-base leading-none transition-colors"
+                className="w-7 h-7 border-[0.5px] border-stone/30 text-stone hover:border-ink hover:text-ink flex items-center justify-center text-base leading-none transition-colors rounded-[2px]"
               >
                 +
               </button>
@@ -102,7 +97,7 @@ export default function PanierPage() {
             </p>
             <button
               onClick={() => removeItem(item.productId)}
-              className="font-mono text-xs text-stone/40 hover:text-clay transition-colors"
+              className="font-mono text-xs text-stone/30 hover:text-clay transition-colors"
               aria-label="Supprimer"
             >
               ✕
@@ -111,19 +106,18 @@ export default function PanierPage() {
         ))}
       </div>
 
-      <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 pt-6 border-t border-stone/20">
+      <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-8 pt-8 border-t border-[0.5px] border-stone/20">
         <div>
-          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-stone mb-1">Total estimé</p>
-          <p className="font-mono text-2xl text-ink">{total.toFixed(2)} €</p>
-          <p className="text-xs text-stone/60 mt-1">Le total définitif est calculé côté serveur.</p>
+          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-stone mb-2">Total estimé</p>
+          <p className="font-mono text-3xl text-ink">{total.toFixed(2)} €</p>
+          <p className="text-xs text-stone/50 mt-1.5">Le total définitif est calculé côté serveur.</p>
         </div>
-
         <div className="flex flex-col items-end gap-3">
           {error && <p className="text-sm text-clay max-w-xs text-right">{error}</p>}
           <button
             onClick={passerCommande}
             disabled={loading}
-            className="border border-ink text-ink font-mono text-xs uppercase tracking-widest px-10 py-3 hover:bg-ink hover:text-linen transition-colors disabled:opacity-40"
+            className="border border-ink text-ink font-mono text-[11px] uppercase tracking-widest px-12 py-3.5 hover:bg-ink hover:text-linen transition-colors duration-150 disabled:opacity-40 rounded-[2px]"
           >
             {loading ? "En cours…" : "Passer commande"}
           </button>

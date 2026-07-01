@@ -18,9 +18,10 @@ export default function ProductCard({ product }: { product: Product }) {
 
   return (
     <div
-      className="relative flex flex-col bg-paper border border-stone/25 overflow-hidden"
+      className="relative flex flex-col bg-paper border-[0.5px] border-stone/20 overflow-hidden"
       style={{ clipPath: `polygon(0 0, calc(100% - ${DOG_EAR}px) 0, 100% ${DOG_EAR}px, 100% 100%, 0 100%)` }}
     >
+      {/* Coin plié */}
       <div
         className="absolute top-0 right-0 z-10 pointer-events-none"
         style={{
@@ -32,7 +33,8 @@ export default function ProductCard({ product }: { product: Product }) {
         }}
       />
 
-      <div className="h-48 bg-linen flex items-center justify-center overflow-hidden">
+      {/* Image */}
+      <div className="h-52 bg-linen flex items-center justify-center overflow-hidden">
         {product.imageUrl ? (
           <img
             src={product.imageUrl}
@@ -40,17 +42,18 @@ export default function ProductCard({ product }: { product: Product }) {
             className="h-full w-full object-cover"
           />
         ) : (
-          <span className="font-mono text-xs uppercase tracking-widest text-stone/50">
+          <span className="font-mono text-[10px] uppercase tracking-widest text-stone/40">
             Image à venir
           </span>
         )}
       </div>
 
-      <div className="flex flex-col gap-1.5 p-4 flex-1">
-        <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-clay">
+      {/* Corps */}
+      <div className="flex flex-col gap-2 p-5 flex-1">
+        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-clay">
           {product.category}
         </span>
-        <h2 className="font-display text-base italic text-ink leading-snug">
+        <h2 className="font-display text-[17px] italic text-ink leading-snug">
           {product.name}
         </h2>
         {product.description && (
@@ -58,7 +61,7 @@ export default function ProductCard({ product }: { product: Product }) {
             {product.description}
           </p>
         )}
-        <div className="mt-auto pt-4 flex items-center justify-between gap-3">
+        <div className="mt-auto pt-5 flex items-center justify-between gap-3">
           <span className="font-mono text-base text-ink">
             {product.price.toFixed(2)} €
           </span>
@@ -71,7 +74,7 @@ export default function ProductCard({ product }: { product: Product }) {
                 imageUrl: product.imageUrl,
               })
             }
-            className="border border-ink text-ink font-mono text-[10px] uppercase tracking-widest px-4 py-1.5 hover:bg-ink hover:text-linen transition-colors"
+            className="border border-ink text-ink font-mono text-[10px] uppercase tracking-widest px-4 py-2 hover:bg-ink hover:text-paper transition-colors duration-150 rounded-[2px]"
           >
             Ajouter
           </button>

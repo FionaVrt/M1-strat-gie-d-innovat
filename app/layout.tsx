@@ -8,6 +8,7 @@ const fraunces = Fraunces({
   variable: "--font-fraunces",
   subsets: ["latin"],
   display: "swap",
+  axes: ["opsz"],
 });
 
 const inter = Inter({
@@ -39,18 +40,18 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-linen text-ink antialiased">
         <CartProvider>
-          <header className="border-b border-kraft/30 bg-linen">
-            <div className="mx-auto max-w-5xl px-6 h-14 flex items-center justify-between">
+          <header className="border-b border-[0.5px] border-stone/20 bg-linen">
+            <div className="mx-auto max-w-5xl px-8 h-16 flex items-center justify-between">
               <a
                 href="/"
-                className="font-display text-base font-semibold text-ink tracking-wide italic"
+                className="font-display text-lg text-ink italic tracking-wide"
               >
                 Maison Papier
               </a>
-              <nav className="flex items-center gap-8">
+              <nav className="flex items-center gap-10">
                 <a
                   href="/produits"
-                  className="font-mono text-xs uppercase tracking-widest text-stone hover:text-ink transition-colors"
+                  className="font-mono text-[11px] uppercase tracking-widest text-stone hover:text-ink transition-colors duration-150"
                 >
                   Catalogue
                 </a>
